@@ -10,6 +10,7 @@
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\""
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.26.2",
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18"
