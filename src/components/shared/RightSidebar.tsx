@@ -3,11 +3,11 @@ import Link from 'next/link'
 import { RenderTag } from '@/components'
 
 const popularTags = [
-  { _id: 1, name: 'javascript', totalQuestions: 53 },
-  { _id: 2, name: 'react', totalQuestions: 12 },
-  { _id: 3, name: 'vue', totalQuestions: 5 },
-  { _id: 4, name: 'nextjs', totalQuestions: 8 },
-  { _id: 5, name: 'redux', totalQuestions: 15 },
+  { _id: '1', name: 'javascript', totalQuestions: 53 },
+  { _id: '2', name: 'react', totalQuestions: 12 },
+  { _id: '3', name: 'vue', totalQuestions: 5 },
+  { _id: '4', name: 'nextjs', totalQuestions: 8 },
+  { _id: '5', name: 'redux', totalQuestions: 15 },
 ]
 
 const hotQuestions = [
