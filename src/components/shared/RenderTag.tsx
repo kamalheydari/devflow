@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Badge } from "@/components"
+import Link from 'next/link'
+import { Badge } from '@/components'
 
 interface Props {
   _id: string
@@ -9,10 +9,12 @@ interface Props {
 }
 
 const RenderTag: React.FC<Props> = (props) => {
-    const { _id, name, showCount, totalQuestions } = props
+  const { _id, name, showCount, totalQuestions } = props
   return (
     <Link href={`/tags/${_id}`} className="flex justify-between gap-2">
-      <Badge className="subtle-medium background-light800_dark300 text-light400_light500 rounded-md border-none px-4 py-2 uppercase">{name}</Badge>
+      <Badge className="subtle-medium background-light800_dark300 text-light400_light500 rounded-md border-none px-4 py-2 uppercase">
+        {name}
+      </Badge>
 
       {showCount ? <p className="small-medium text-dark500_light700">{totalQuestions}</p> : null}
     </Link>

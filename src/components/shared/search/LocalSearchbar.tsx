@@ -13,7 +13,7 @@ interface Props {
 }
 
 const LocalSearchbar: React.FC<Props> = (props) => {
-  const { iconPosition, imgSrc, otherClasses, placeholder} = props
+  const { iconPosition, imgSrc, otherClasses, placeholder } = props
   return (
     <div
       className={cn(

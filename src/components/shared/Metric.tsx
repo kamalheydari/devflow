@@ -25,13 +25,13 @@ const Metric: React.FC<Props> = (props) => {
     </>
   )
 
-if(href){
-  return (
-    <Link href={href} className='flex-center gap-1' >
-      {metricContent}
-    </Link>
-  )
-}
+  if (href) {
+    return (
+      <Link href={href} className="flex-center gap-1">
+        {metricContent}
+      </Link>
+    )
+  }
 
   return <div className="flex-center flex-wrap gap-1">{metricContent}</div>
 }

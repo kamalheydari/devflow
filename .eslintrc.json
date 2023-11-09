@@ -2,6 +2,6 @@
   "extends": ["next/core-web-vitals", "standard", "plugin:tailwindcss/recommended", "prettier"],
   "rules": {
     "no-undef":"off",
-    "tailwindcss/no-custom-classname":"off"
+    "no-unused-vars":"warn"
   }
 }
