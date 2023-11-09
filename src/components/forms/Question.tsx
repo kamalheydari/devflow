@@ -21,13 +21,21 @@ import {
 } from '@/components'
 import { QuestionsSchema } from '@/lib/validations'
 import Image from 'next/image'
+import { createQuestion } from '@/lib/actions'
+import { useRouter } from 'next/navigation'
 
-interface Props {}
+interface Props {
+  mongoUserId: string
+}
 
 // eslint-disable-next-line prefer-const
 let type: 'create' | 'edit' = 'create'
 
 const Question: React.FC<Props> = (props) => {
+  const { mongoUserId } = props
+
+  const router = useRouter()
+
   const editorRef = useRef(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -42,14 +50,23 @@ const Question: React.FC<Props> = (props) => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true)
 
-    // try {
-    // } catch (error) {
-    // } finally {
-    //   setIsSubmitting(false)
-    // }
+    try {
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+        path:'/'
+      })
+
+      router.push('/')
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false)
+    }
 
     console.log(values)
   }
@@ -124,6 +141,8 @@ const Question: React.FC<Props> = (props) => {
                   // @ts-ignore
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   initialValue=""
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   init={{
                     height: 350,
                     menubar: false,
