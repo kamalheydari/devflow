@@ -1,16 +1,15 @@
 import { Question } from '@/components'
 import { getUserById } from '@/lib/actions'
-import { auth } from '@clerk/nextjs'
+// import { auth } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
-export  default async function AskQuestion() {
+export default async function AskQuestion() {
+  // const {userId} = auth()
+  const userId = '123456789'
 
-// const {userId} = auth()
-const userId = '123456789'
+  if (!userId) redirect('/sign-in')
 
-if(!userId)redirect('/sign-in')
-
-const mongoUser=await getUserById({userId})
+  const mongoUser = await getUserById({ userId })
 
   return (
     <div>

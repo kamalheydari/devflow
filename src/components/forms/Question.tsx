@@ -59,7 +59,7 @@ const Question: React.FC<Props> = (props) => {
         content: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId),
-        path:'/'
+        path: '/',
       })
 
       router.push('/')

@@ -30,7 +30,7 @@ const LocalSearchbar: React.FC<Props> = (props) => {
         placeholder={placeholder}
         value=""
         onChange={() => {}}
-        className="paragraph-regular no-focus placeholder background-dark400_light700 border-none shadow-none outline-none"
+        className="paragraph-regular no-focus placeholder background-light700_dark400 border-none shadow-none outline-none"
       />
 
       {iconPosition === 'right' ? (

@@ -19,7 +19,7 @@ const Metric: React.FC<Props> = (props) => {
       <Image src={imgUrl} width={16} height={16} alt={alt} className={`object-contain ${href ? 'rounded-full' : ''}`} />
       <p className={`${textStyles} flex items-center gap-1`}>
         {value}
-        <span className={`smal-regular line-clamp-1 ${isAuthor ? 'max-sm:hidden' : ''}`}></span>
+        <span className={`small-regular line-clamp-1 ${isAuthor ? 'max-sm:hidden' : ''}`}></span>
         {title}
       </p>
     </>

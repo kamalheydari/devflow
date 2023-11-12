@@ -23,14 +23,14 @@ const Theme = () => {
     <div className="text-gray-400">
       <Menubar className="relative border-none bg-transparent shadow-none">
         <MenubarMenu>
-          <MenubarTrigger className="data-[state=open]:bg-light-200 cursor-pointer focus:bg-light-900 dark:focus:bg-dark-200 dark:data-[state=open]:bg-dark-200">
+          <MenubarTrigger className="cursor-pointer focus:bg-light-900 data-[state=open]:bg-light-400 dark:focus:bg-dark-200 dark:data-[state=open]:bg-dark-200">
             {resolvedTheme === 'light' ? (
               <Image src="/assets/icons/moon.svg" alt="moon" width={20} height={20} className="active-theme" />
             ) : (
               <Image src="/assets/icons/sun.svg" alt="sun" width={20} height={20} className="active-theme" />
             )}
           </MenubarTrigger>
-          <MenubarContent className="bourder absolute right-[-3rem] mt-3 min-w-[120px] rounded py-2 dark:border-dark-400 dark:bg-dark-300">
+          <MenubarContent className="absolute right-[-3rem] mt-3 min-w-[120px] rounded border py-2 dark:border-dark-400 dark:bg-dark-300">
             {themes.map((item, i) => (
               <MenubarItem
                 key={i}
@@ -45,7 +45,7 @@ const Theme = () => {
                   className={`${resolvedTheme === item.value ? 'active-theme' : null}`}
                 />
                 <p
-                  className={`body-seminold text-light-500 ${
+                  className={`body-semibold text-light-500 ${
                     resolvedTheme === item.value ? 'text-primary-500' : 'text-dark100_light900'
                   }`}
                 >
