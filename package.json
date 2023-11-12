@@ -7,13 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\""
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
+    "postinstall": "husky install"
   },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run prettier && npm run lint && npm run build"
-        }
-    },
   "dependencies": {
     "@clerk/nextjs": "^4.26.2",
     "@hookform/resolvers": "^3.3.2",
@@ -50,6 +46,7 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "husky": "^8.0.3",
+    "pinst": "^3.0.0",
     "postcss": "^8",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.3.0",
