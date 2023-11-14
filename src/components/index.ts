@@ -13,6 +13,7 @@ export { default as Metric } from './shared/Metric'
 export { default as HomeFilters } from './home/HomeFilters'
 
 export { default as QuestionCard } from './cards/QuestionCard'
+export { default as UserCard } from './cards/UserCard'
 
 export { default as Question } from './forms/Question'
 

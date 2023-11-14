@@ -67,7 +67,6 @@ const Question: React.FC<Props> = (props) => {
     } finally {
       setIsSubmitting(false)
     }
-
   }
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, field: any) => {

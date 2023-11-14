@@ -35,7 +35,7 @@ const QuestionCard: React.FC<Props> = (props) => {
         <div className="flex-between mt-6 w-full flex-wrap gap-3">
           <Metric
             alt="user"
-            imgUrl="/assets/icons/avatar.svg"
+            imgUrl={author.picture}
             textStyles="body-medium text-dark400_light700"
             title={` - asked ${getTimeStamp(createdAt)}`}
             value={author.name}
