@@ -2,7 +2,7 @@
 
 import { connectedToDatabase } from '@/lib/mongoose'
 import { Question, Tag, User } from '@/models'
-import { CreateQuestionParams, GetQuestionsParams } from './shared.types'
+import { CreateQuestionParams, GetQuestionByIdParams, GetQuestionsParams } from './shared.types'
 import { revalidatePath } from 'next/cache'
 
 export async function getQuestions(params: GetQuestionsParams) {
@@ -54,4 +54,21 @@ export async function createQuestion(params: CreateQuestionParams) {
     // Increament author's reputation by +5 for createing a question
     revalidatePath(path)
   } catch (error) {}
+}
+
+export async function getQuestionById(params: GetQuestionByIdParams) {
+  try {
+    connectedToDatabase()
+
+    const { questionId } = params
+
+    const question = await Question.findById(questionId)
+      .populate({ path: 'tags', model: Tag, select: '_id name' })
+      .populate({ path: 'author', model: User, select: 'clerkId picture name' })
+
+    return { question }
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 }

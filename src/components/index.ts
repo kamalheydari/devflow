@@ -9,6 +9,7 @@ export { default as RenderTag } from './shared/RenderTag'
 export { default as Filter } from './shared/Filter'
 export { default as NoResult } from './shared/NoResult'
 export { default as Metric } from './shared/Metric'
+export { default as ParseHTML } from './shared/ParseHTML'
 
 export { default as HomeFilters } from './home/HomeFilters'
 
@@ -16,6 +17,7 @@ export { default as QuestionCard } from './cards/QuestionCard'
 export { default as UserCard } from './cards/UserCard'
 
 export { default as Question } from './forms/Question'
+export { default as Answer } from './forms/Answer'
 
 export * from './ui/button'
 export * from './ui/menubar'

@@ -28,27 +28,22 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   }
 }
 
-export async function getAllTags (params:GetAllTagsParams ) {
+export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectedToDatabase()
 
-    const tags=await Tag.find({})
+    const tags = await Tag.find({})
 
-    return {tags}
+    return { tags }
   } catch (error) {
     console.log(error)
     throw error
   }
 }
 
-
-
-
-
 // export async function (params: ) {
 //   try {
 //     connectedToDatabase()
-
 
 //     return {}
 //   } catch (error) {

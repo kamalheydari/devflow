@@ -23,6 +23,7 @@ import { QuestionsSchema } from '@/lib/validations'
 import Image from 'next/image'
 import { createQuestion } from '@/lib/actions'
 import { useRouter } from 'next/navigation'
+import { useTheme } from 'next-themes'
 
 interface Props {
   mongoUserId: string
@@ -33,6 +34,8 @@ let type: 'create' | 'edit' = 'create'
 
 const Question: React.FC<Props> = (props) => {
   const { mongoUserId } = props
+
+  const { resolvedTheme } = useTheme()
 
   const router = useRouter()
 
@@ -167,6 +170,8 @@ const Question: React.FC<Props> = (props) => {
                       'alignright alignjustify | bullist numlist' +
                       '| help',
                     content_style: 'body { font-family:Inter,Arial,sans-serif; font-size:16px }',
+                    skin: resolvedTheme === 'dark' ? 'oxide-dark' : 'oxide',
+                    content_css: resolvedTheme === 'dark' ? 'dark' : 'light',
                   }}
                 />
               </FormControl>
