@@ -1,7 +1,7 @@
 'use client'
 
 import { HomePageFilters } from '@/constants/filters'
-import { Button } from '@/components'
+import { Button } from '@/components/ui'
 import clsx from 'clsx'
 
 interface Props {}

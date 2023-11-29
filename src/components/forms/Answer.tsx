@@ -1,17 +1,29 @@
 'use client'
-import { Button, Form, FormControl, FormField, FormItem, FormMessage } from '@/components'
-import { AnswerSchema } from '@/lib/validations'
+import { usePathname } from 'next/navigation'
+import { useRef } from 'react'
+
+import { useTheme } from 'next-themes'
+
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Editor } from '@tinymce/tinymce-react'
-import { useTheme } from 'next-themes'
-import { useRef } from 'react'
-import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-interface Props {}
+import { createAnswer } from '@/lib/actions/answer.action'
+import { AnswerSchema } from '@/lib/validations'
+
+import { Button, Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui'
+
+interface Props {
+  questionId: string
+  question: string
+  authorId: string
+}
 
 const Answer: React.FC<Props> = (props) => {
+  const { authorId, questionId } = props
   const { resolvedTheme } = useTheme()
+  const pathname = usePathname()
 
   const editorRef = useRef(null)
 
@@ -21,8 +33,26 @@ const Answer: React.FC<Props> = (props) => {
       answer: '',
     },
   })
-  console.log(form.formState.isSubmitting)
-  const handleCreateAnswer = () => {}
+
+  const handleCreateAnswer = async (values: z.infer<typeof AnswerSchema>) => {
+    try {
+      await createAnswer({
+        author: JSON.parse(authorId),
+        content: values.answer,
+        question: JSON.parse(questionId),
+        path: pathname,
+      })
+
+      form.reset()
+
+      if (editorRef.current) {
+        const editor = editorRef.current as any
+        editor.setContent('')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="mt-5">

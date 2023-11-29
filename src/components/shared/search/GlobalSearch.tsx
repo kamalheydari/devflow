@@ -1,6 +1,8 @@
 'use client'
+
 import Image from 'next/image'
-import { Input } from '@/components'
+
+import { Input } from '@/components/ui'
 
 const GlobalSearch = () => {
   return (

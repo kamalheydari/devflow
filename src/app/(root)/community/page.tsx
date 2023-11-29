@@ -1,7 +1,11 @@
-import { Filter, LocalSearchbar, UserCard } from '@/components'
-import { UserFilters } from '@/constants/filters'
-import { getAllUsers } from '@/lib/actions'
 import Link from 'next/link'
+
+import { UserFilters } from '@/constants/filters'
+
+import { getAllUsers } from '@/lib/actions'
+
+import { Filter, LocalSearchbar } from '@/components/shared'
+import { UserCard } from '@/components/cards'
 
 export default async function Community() {
   const result = await getAllUsers({})

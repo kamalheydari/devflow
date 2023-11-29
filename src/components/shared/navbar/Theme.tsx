@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react'
 
 import { useTheme } from 'next-themes'
 
-import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@/components'
-
 import { themes } from '@/constants'
+
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@/components/ui'
 
 const Theme = () => {
   const { setTheme, resolvedTheme } = useTheme()

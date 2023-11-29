@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { RenderTag } from '@/components'
+
+import { RenderTag } from '@/components/shared'
 
 const popularTags = [
   { _id: '1', name: 'javascript', totalQuestions: 53 },

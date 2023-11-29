@@ -1,8 +1,10 @@
 'use client'
 
-import { Input } from '@/components'
-import { cn } from '@/lib/utils'
 import Image from 'next/image'
+
+import { cn } from '@/lib/utils'
+
+import { Input } from '@/components/ui'
 
 interface Props {
   route: string

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components'
+
+import { Button } from '@/components/ui'
 
 interface Props {
   title: string

@@ -1,11 +1,18 @@
 'use client'
 
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
+
+import { useTheme } from 'next-themes'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+
+import { QuestionsSchema } from '@/lib/validations'
+import { createQuestion } from '@/lib/actions'
 
 import {
   Form,
@@ -18,12 +25,7 @@ import {
   Input,
   Button,
   Badge,
-} from '@/components'
-import { QuestionsSchema } from '@/lib/validations'
-import Image from 'next/image'
-import { createQuestion } from '@/lib/actions'
-import { useRouter } from 'next/navigation'
-import { useTheme } from 'next-themes'
+} from '@/components/ui'
 
 interface Props {
   mongoUserId: string

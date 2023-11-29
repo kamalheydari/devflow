@@ -1,11 +1,14 @@
 'use client'
 
-import { Button, Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components'
-import { sidebarLinks } from '@/constants'
-import { SignedOut } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
+import { SignedOut } from '@clerk/nextjs'
+
+import { sidebarLinks } from '@/constants'
+
+import { Button, Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui'
 
 const NavContent = () => {
   const pathname = usePathname()

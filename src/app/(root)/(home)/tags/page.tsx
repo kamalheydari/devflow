@@ -1,7 +1,10 @@
-import { Filter, LocalSearchbar, NoResult } from '@/components'
-import { UserFilters } from '@/constants/filters'
-import { getAllTags } from '@/lib/actions/tag.actions'
 import Link from 'next/link'
+
+import { UserFilters } from '@/constants/filters'
+
+import { getAllTags } from '@/lib/actions/tag.actions'
+
+import { Filter, LocalSearchbar, NoResult } from '@/components/shared'
 
 export default async function Community() {
   const result = await getAllTags({})

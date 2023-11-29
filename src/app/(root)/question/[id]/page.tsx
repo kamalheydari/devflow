@@ -1,8 +1,13 @@
-import { Answer, Metric, ParseHTML, RenderTag } from '@/components'
-import { getQuestionById } from '@/lib/actions'
-import { formatAndDivideNumber, getTimeStamp } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { auth } from '@clerk/nextjs'
+
+import { getQuestionById, getUserById } from '@/lib/actions'
+
+import { formatAndDivideNumber, getTimeStamp } from '@/lib/utils'
+import { AllAnswers, Metric, ParseHTML, RenderTag } from '@/components/shared'
+import { Answer } from '@/components/forms'
 
 interface Props {
   params: { id: string }
@@ -12,6 +17,10 @@ const page: React.FC<Props> = async (props) => {
   const { params } = props
 
   const result = await getQuestionById({ questionId: params.id })
+
+  const { userId: clerkId } = auth()
+  let mongoUser
+  if (clerkId) mongoUser = await getUserById({ userId: clerkId })
 
   return (
     <>
@@ -54,13 +63,23 @@ const page: React.FC<Props> = async (props) => {
 
       <ParseHTML data={result.question.content} />
 
-      <div>
+      <div className="flex gap-3">
         {result.question.tags.map((tag: { _id: string; name: string }) => (
           <RenderTag key={tag._id} _id={tag._id} name={tag.name} showCount={false} />
         ))}
       </div>
 
-      <Answer />
+      <AllAnswers
+        userId={JSON.stringify(mongoUser?._id)}
+        questionId={result.question._id}
+        totalAnswers={result.question.answers.length}
+      />
+
+      <Answer
+        question={result.question.content}
+        questionId={JSON.stringify(result.question._id)}
+        authorId={JSON.stringify(mongoUser._id)}
+      />
     </>
   )
 }

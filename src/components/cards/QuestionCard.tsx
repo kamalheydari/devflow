@@ -1,6 +1,6 @@
 // Todo check styles with figma
 import Link from 'next/link'
-import { Metric, RenderTag } from '@/components'
+import { Metric, RenderTag } from '@/components/shared'
 import { formatAndDivideNumber, getTimeStamp } from '@/lib/utils'
 
 interface Props {

@@ -1,7 +1,9 @@
-import { SignedIn, UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
-import { GlobalSearch, MobileNav, Theme } from '@/components'
+
+import { SignedIn, UserButton } from '@clerk/nextjs'
+
+import { GlobalSearch, MobileNav, Theme } from '@/components/shared'
 
 const Navbar = () => {
   return (

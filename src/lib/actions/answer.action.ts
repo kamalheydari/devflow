@@ -2,7 +2,7 @@
 
 import { Answer, Question } from '@/models'
 import { connectedToDatabase } from '../mongoose'
-import { CreateAnswerParams } from './shared.types'
+import { CreateAnswerParams, GetAnswersParams } from './shared.types'
 import { revalidatePath } from 'next/cache'
 
 export async function createAnswer(params: CreateAnswerParams) {
@@ -11,7 +11,7 @@ export async function createAnswer(params: CreateAnswerParams) {
 
     const { author, content, path, question } = params
 
-    const newAnswer = new Answer({ content, author, question })
+    const newAnswer = await Answer.create({ content, author, question })
 
     // add the answer to the questions answers array
     await Question.findByIdAndUpdate(question, {
@@ -21,6 +21,24 @@ export async function createAnswer(params: CreateAnswerParams) {
     // Todo: add interactions...
 
     revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function getAnswers(params: GetAnswersParams) {
+  try {
+    connectedToDatabase()
+
+    const { questionId } = params
+    console.log(questionId)
+
+    const answers = await Answer.find({ question: questionId })
+      .populate('author', '_id clerkId name picture')
+      .sort({ createdAt: -1 })
+console.log(answers)
+    return { answers }
   } catch (error) {
     console.log(error)
     throw error

@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Badge } from '@/components'
+
+import { Badge } from '@/components/ui'
 
 interface Props {
   _id: string
