@@ -11,3 +11,5 @@ export { default as NoResult } from './NoResult'
 export { default as Metric } from './Metric'
 export { default as ParseHTML } from './ParseHTML'
 export { default as AllAnswers } from './AllAnswers'
+export { default as Votes } from './Votes'
+

@@ -7,7 +7,7 @@ import { AnswerFilters } from '@/constants/filters'
 
 import { getTimeStamp } from '@/lib/utils'
 
-import { Filter, ParseHTML } from '@/components/shared'
+import { Filter, ParseHTML, Votes } from '@/components/shared'
 
 interface Props {
   userId: string
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const AllAnswers: React.FC<Props> = async (props) => {
-  const { questionId, totalAnswers } = props
+  const { questionId, totalAnswers, userId } = props
 
   const result = await getAnswers({
     questionId,
@@ -55,8 +55,17 @@ const AllAnswers: React.FC<Props> = async (props) => {
                     </p>
                   </div>
                 </Link>
-                <div className="flex justify-end">voting</div>
-                
+                <div className="flex justify-end">
+                  <Votes
+                    type="Answer"
+                    itemId={JSON.stringify(answer._id)}
+                    userId={JSON.stringify(userId)}
+                    upvotes={answer.upvotes.length}
+                    downvotes={answer.downvotes.length}
+                    hasupVoted={answer.upvotes.includes(userId)}
+                    hasdownVoted={answer.downvotes.includes(userId)}
+                  />
+                </div>
               </div>
             </div>
             <ParseHTML data={answer.content} />
