@@ -1,6 +1,6 @@
 'use client'
 
-import { downvoteQuestion, upvoteQuestion } from '@/lib/actions'
+import { downvoteQuestion, toggleSaveQuestion, upvoteQuestion } from '@/lib/actions'
 import { downvoteAnswer, upvoteAnswer } from '@/lib/actions/answer.action'
 import { formatAndDivideNumber } from '@/lib/utils'
 import Image from 'next/image'
@@ -23,7 +23,14 @@ const Votes: React.FC<Props> = (props) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const handleSave = () => {}
+  const handleSave = async () => {
+    await toggleSaveQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname,
+    })
+  }
+
   const handleVote = async (action: 'upvote' | 'downvote') => {
     // eslint-disable-next-line no-useless-return
     if (!userId) return

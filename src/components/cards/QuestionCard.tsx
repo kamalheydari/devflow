@@ -8,7 +8,7 @@ interface Props {
   title: string
   tags: { _id: string; name: string }[]
   author: { _id: string; name: string; picture: string }
-  upvotes: number
+  upvotes: Array<object>
   views: number
   answers: Array<object>
   createdAt: Date
@@ -48,7 +48,7 @@ const QuestionCard: React.FC<Props> = (props) => {
             imgUrl="/assets/icons/like.svg"
             textStyles="small-medium text-dark400_light800"
             title="Votes"
-            value={formatAndDivideNumber(upvotes)}
+            value={formatAndDivideNumber(upvotes.length)}
           />
 
           <Metric
