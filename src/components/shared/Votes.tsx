@@ -2,9 +2,11 @@
 
 import { downvoteQuestion, toggleSaveQuestion, upvoteQuestion } from '@/lib/actions'
 import { downvoteAnswer, upvoteAnswer } from '@/lib/actions/answer.action'
+import { viewQuestion } from '@/lib/actions/interaction.action'
 import { formatAndDivideNumber } from '@/lib/utils'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 interface Props {
   type: 'Question' | 'Answer'
@@ -85,6 +87,13 @@ const Votes: React.FC<Props> = (props) => {
       return
     }
   }
+
+  useEffect(() => {
+    viewQuestion({
+      questionId: JSON.parse(itemId),
+      userId: userId ? JSON.parse(userId) : undefined,
+    })
+  }, [itemId, userId, pathname, router])
 
   return (
     <div className="flex gap-5">
