@@ -34,11 +34,11 @@ const page: React.FC<Props> = async (props) => {
             <Votes
               type="Question"
               itemId={JSON.stringify(result.question._id)}
-              userId={JSON.stringify(mongoUser._id)}
+              userId={JSON.stringify(mongoUser?._id)}
               upvotes={result.question.upvotes.length}
               downvotes={result.question.downvotes.length}
-              hasupVoted={result.question.upvotes.includes(mongoUser._id)}
-              hasdownVoted={result.question.downvotes.includes(mongoUser._id)}
+              hasupVoted={result.question.upvotes.includes(mongoUser?._id)}
+              hasdownVoted={result.question.downvotes.includes(mongoUser?._id)}
               hasSaved={mongoUser?.saved.includes(result.question._id)}
             />
           </div>
@@ -89,7 +89,7 @@ const page: React.FC<Props> = async (props) => {
       <Answer
         question={result.question.content}
         questionId={JSON.stringify(result.question._id)}
-        authorId={JSON.stringify(mongoUser._id)}
+        authorId={JSON.stringify(mongoUser?._id)}
       />
     </>
   )

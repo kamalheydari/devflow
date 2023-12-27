@@ -12,4 +12,8 @@ export { default as Metric } from './Metric'
 export { default as ParseHTML } from './ParseHTML'
 export { default as AllAnswers } from './AllAnswers'
 export { default as Votes } from './Votes'
+export { default as ProfileLink } from './ProfileLink'
+export { default as Stats } from './Stats'
+export { default as QuestionTab } from './QuestionTab'
+export { default as AnswersTab } from './AnswersTab'
 
