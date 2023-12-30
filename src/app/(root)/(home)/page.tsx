@@ -7,9 +7,10 @@ import { Button } from '@/components/ui'
 import { Filter, LocalSearchbar, NoResult } from '@/components/shared'
 import { HomeFilters } from '@/components/home'
 import { QuestionCard } from '@/components/cards'
+import { SearchParamsProps } from '@/types'
 
-export default async function Home() {
-  const result = await getQuestions({})
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const result = await getQuestions({ searchQuery: searchParams.q })
 
   return (
     <>

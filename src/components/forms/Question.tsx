@@ -44,7 +44,7 @@ const Question: React.FC<Props> = (props) => {
   const editorRef = useRef(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const parsedQuestionDetails = JSON.parse(questionDetails || '')
+  const parsedQuestionDetails = questionDetails && JSON.parse(questionDetails || '')
 
   const groupedTags = parsedQuestionDetails.tags.map((tag: any) => tag.name)
 
@@ -52,8 +52,8 @@ const Question: React.FC<Props> = (props) => {
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-      explanation: parsedQuestionDetails.content || '',
-      title: parsedQuestionDetails.title || '',
+      explanation: parsedQuestionDetails?.content || '',
+      title: parsedQuestionDetails?.title || '',
       tags: groupedTags || [],
     },
   })
@@ -157,7 +157,7 @@ const Question: React.FC<Props> = (props) => {
                   apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   // @ts-ignore
                   onInit={(evt, editor) => (editorRef.current = editor)}
-                  initialValue={parsedQuestionDetails.content || ''}
+                  initialValue={parsedQuestionDetails?.content || ''}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
                   init={{

@@ -11,12 +11,23 @@ import {
   QuestionVoteParams,
 } from './shared.types'
 import { revalidatePath } from 'next/cache'
+import { FilterQuery } from 'mongoose'
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectedToDatabase()
 
-    const questions = await Question.find()
+    const { searchQuery } = params
+
+    const query: FilterQuery<typeof Question> = {}
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, 'i') } },
+        { content: { $regex: new RegExp(searchQuery, 'i') } },
+      ]
+    }
+
+    const questions = await Question.find(query)
       .populate({ path: 'tags', model: Tag })
       .populate({ path: 'author', model: User })
       .sort({ createdAt: -1 })
@@ -172,6 +183,19 @@ export async function editQuestion(params: EditQuestionParams) {
     question.save()
 
     revalidatePath(path)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function getHotQuestions() {
+  try {
+    connectedToDatabase()
+
+    const hotQuestions = await Question.find({}).sort({ views: -1, upvotes: -1 }).limit(5)
+
+    return hotQuestions
   } catch (error) {
     console.log(error)
     throw error

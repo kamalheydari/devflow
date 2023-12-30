@@ -6,9 +6,10 @@ import { getAllUsers } from '@/lib/actions'
 
 import { Filter, LocalSearchbar } from '@/components/shared'
 import { UserCard } from '@/components/cards'
+import { SearchParamsProps } from '@/types'
 
-export default async function Community() {
-  const result = await getAllUsers({})
+export default async function Community({ searchParams }: SearchParamsProps) {
+  const result = await getAllUsers({ searchQuery: searchParams.q })
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>

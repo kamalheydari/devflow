@@ -35,7 +35,15 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectedToDatabase()
 
-    const tags = await Tag.find({})
+    const { searchQuery } = params
+
+    const query: FilterQuery<typeof Tag> = {}
+
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
+    }
+
+    const tags = await Tag.find(query)
 
     return { tags }
   } catch (error) {
@@ -47,6 +55,7 @@ export async function getAllTags(params: GetAllTagsParams) {
 export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
   try {
     connectedToDatabase()
+    // eslint-disable-next-line no-unused-vars
     const { tagId, page = 1, pageSize = 10, searchQuery } = params
 
     const tagFilter: FilterQuery<ITag> = { _id: tagId }
@@ -71,6 +80,23 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
     const questions = tag.questions
 
     return { tagTitle: tag.name, questions }
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export async function getTopPopularTags() {
+  try {
+    connectedToDatabase()
+    const popularTags = await Tag.aggregate([
+      { $project: { name: 1, numberOfQuestions: { $size: '$questions' } } },
+      {
+        $sort: { numberOfQuestions: -1 },
+      },
+      { $limit: 5 },
+    ])
+    return popularTags
   } catch (error) {
     console.log(error)
     throw error

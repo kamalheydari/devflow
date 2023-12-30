@@ -89,9 +89,19 @@ export async function getAllUsers(params: GetAllUsersParams) {
   try {
     connectedToDatabase()
 
-    // const { filter, searchQuery, page = 1, pageSize = 20 } = params
+    // eslint-disable-next-line no-unused-vars
+    const { filter, searchQuery, page = 1, pageSize = 20 } = params
 
-    const users = await User.find({}).sort({ createdAt: -1 })
+    const query: FilterQuery<typeof User> = {}
+
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: new RegExp(searchQuery, 'i') } },
+        { username: { $regex: new RegExp(searchQuery, 'i') } },
+      ]
+    }
+
+    const users = await User.find(query).sort({ createdAt: -1 })
     return { users }
   } catch (error) {
     console.log(error)
