@@ -1,15 +1,17 @@
 import Link from 'next/link'
 
-import { UserFilters } from '@/constants/filters'
+import { TagFilters } from '@/constants/filters'
 
 import { getAllTags } from '@/lib/actions/tag.actions'
 
-import { Filter, LocalSearchbar, NoResult } from '@/components/shared'
+import { Filter, LocalSearchbar, NoResult, Pagination } from '@/components/shared'
 import { SearchParamsProps } from '@/types'
 
 export default async function Tags({ searchParams }: SearchParamsProps) {
   const result = await getAllTags({
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   })
 
   return (
@@ -24,7 +26,7 @@ export default async function Tags({ searchParams }: SearchParamsProps) {
           otherClasses="flex-1"
         />
 
-        <Filter filters={UserFilters} otherClasses="min-h-[56px] sm:min-w-[170px]" />
+        <Filter filters={TagFilters} otherClasses="min-h-[56px] sm:min-w-[170px]" />
       </div>
 
       <section className="mt-12 flex flex-wrap gap-4">
@@ -55,6 +57,7 @@ export default async function Tags({ searchParams }: SearchParamsProps) {
           />
         )}
       </section>
+      <Pagination isNext={result.isNext} pageNumber={searchParams?.page ? +searchParams.page : 1} />
     </>
   )
 }

@@ -8,7 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const Page: React.FC<URLProps> = async (props) => {
-  const { params } = props
+  const { params, searchParams } = props
   const { userId: clerkId } = auth()
 
   const userInfo = await getUserInfo({
@@ -72,10 +72,22 @@ const Page: React.FC<URLProps> = async (props) => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts">
-            {clerkId && <QuestionTab userId={userInfo.user._id} clerkId={clerkId} />}
+            {clerkId && (
+              <QuestionTab
+                page={searchParams?.page ? +searchParams.page : 1}
+                userId={userInfo.user._id}
+                clerkId={clerkId}
+              />
+            )}
           </TabsContent>
           <TabsContent value="answrs" className="flex w-full flex-col gap-6">
-            {clerkId && <AnswersTab userId={userInfo.user._id} clerkId={clerkId} />}
+            {clerkId && (
+              <AnswersTab
+                page={searchParams?.page ? +searchParams.page : 1}
+                userId={userInfo.user._id}
+                clerkId={clerkId}
+              />
+            )}
           </TabsContent>
         </Tabs>
       </div>

@@ -35,7 +35,9 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectedToDatabase()
 
-    const { searchQuery } = params
+    const { searchQuery, filter, page = 1, pageSize = 8 } = params
+
+    const skipAmount = (page - 1) * pageSize
 
     const query: FilterQuery<typeof Tag> = {}
 
@@ -43,9 +45,36 @@ export async function getAllTags(params: GetAllTagsParams) {
       query.$or = [{ name: { $regex: new RegExp(searchQuery, 'i') } }]
     }
 
-    const tags = await Tag.find(query)
+    let sortOptions = {}
 
-    return { tags }
+    switch (filter) {
+      case 'popular':
+        sortOptions = { questions: -1 }
+        break
+
+      case 'recent':
+        sortOptions = { createdAt: -1 }
+        break
+
+      case 'name':
+        sortOptions = { name: 1 }
+        break
+
+      case 'old':
+        sortOptions = { createdAt: -1 }
+        break
+
+      default:
+        break
+    }
+
+    const tags = await Tag.find(query).sort(sortOptions).skip(skipAmount).limit(pageSize)
+
+    const totalTags = await Tag.countDocuments(query)
+
+    const isNext = totalTags > skipAmount + tags.length
+
+    return { tags, isNext }
   } catch (error) {
     console.log(error)
     throw error
@@ -55,8 +84,9 @@ export async function getAllTags(params: GetAllTagsParams) {
 export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
   try {
     connectedToDatabase()
-    // eslint-disable-next-line no-unused-vars
-    const { tagId, page = 1, pageSize = 10, searchQuery } = params
+
+    const { tagId, page = 1, pageSize = 8, searchQuery } = params
+    const skipAmount = (page - 1) * pageSize
 
     const tagFilter: FilterQuery<ITag> = { _id: tagId }
 
@@ -66,6 +96,8 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
       match: searchQuery ? { title: { $regex: searchQuery, $options: 'i' } } : {},
       options: {
         sort: { createdAt: -1 },
+        skip: skipAmount,
+        limit: pageSize + 1,
       },
       populate: [
         { path: 'tags', model: Tag, select: '_id name' },
@@ -77,9 +109,11 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
       throw new Error('Tag not found')
     }
 
+    const isNext = tag.questions.length > pageSize
+
     const questions = tag.questions
 
-    return { tagTitle: tag.name, questions }
+    return { tagTitle: tag.name, questions, isNext }
   } catch (error) {
     console.log(error)
     throw error

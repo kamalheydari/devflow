@@ -1,10 +1,10 @@
 import { QuestionCard } from '@/components/cards'
-import { LocalSearchbar, NoResult } from '@/components/shared'
+import { LocalSearchbar, NoResult, Pagination } from '@/components/shared'
 import { getQuestionsByTagId } from '@/lib/actions/tag.actions'
+import type { SearchParamsProps } from '@/types'
 
-interface Props {
+interface Props extends SearchParamsProps {
   params: { id: string }
-  searchParams: { q: string }
 }
 
 const Page: React.FC<Props> = async (props) => {
@@ -12,7 +12,7 @@ const Page: React.FC<Props> = async (props) => {
 
   const result = await getQuestionsByTagId({
     tagId: params.id,
-    page: 1,
+    page: searchParams.page ? +searchParams.page : 1,
     searchQuery: searchParams.q,
   })
 
@@ -54,6 +54,7 @@ const Page: React.FC<Props> = async (props) => {
           />
         )}
       </div>
+      <Pagination isNext={result.isNext} pageNumber={searchParams?.page ? +searchParams.page : 1} />
     </>
   )
 }

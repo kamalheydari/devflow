@@ -4,13 +4,17 @@ import { HomePageFilters } from '@/constants/filters'
 import { getQuestions } from '@/lib/actions'
 
 import { Button } from '@/components/ui'
-import { Filter, LocalSearchbar, NoResult } from '@/components/shared'
+import { Filter, LocalSearchbar, NoResult, Pagination } from '@/components/shared'
 import { HomeFilters } from '@/components/home'
 import { QuestionCard } from '@/components/cards'
 import { SearchParamsProps } from '@/types'
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  const result = await getQuestions({ searchQuery: searchParams.q })
+  const result = await getQuestions({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
+  })
 
   return (
     <>
@@ -61,6 +65,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           />
         )}
       </div>
+      <Pagination isNext={result.isNext} pageNumber={searchParams?.page ? +searchParams.page : 1} />
     </>
   )
 }

@@ -47,9 +47,9 @@ const LocalSearchbar: React.FC<Props> = (props) => {
           router.push(newUrl, { scroll: false })
         }
       }
+    }, 500)
 
-      return () => clearTimeout(delayDebounceFn)
-    }, 300)
+    return () => clearTimeout(delayDebounceFn)
   }, [search, router, route, searchParams, query, pathname])
 
   return (
@@ -66,7 +66,7 @@ const LocalSearchbar: React.FC<Props> = (props) => {
       <Input
         type="text"
         placeholder={placeholder}
-        value=""
+        value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="paragraph-regular no-focus placeholder background-light700_dark400 border-none shadow-none outline-none"
       />

@@ -1,15 +1,17 @@
 import { getUserQuestions } from '@/lib/actions'
 import { QuestionCard } from '@/components/cards'
+import { Pagination } from '.'
 
 interface Props {
   userId: string
   clerkId?: string | null
+  page: number
 }
 
 const QuestionTab: React.FC<Props> = async (props) => {
-  const { userId, clerkId } = props
+  const { userId, clerkId, page } = props
 
-  const result = await getUserQuestions({ userId, page: 1 })
+  const result = await getUserQuestions({ userId, page })
 
   return (
     <>
@@ -27,6 +29,7 @@ const QuestionTab: React.FC<Props> = async (props) => {
           views={question.views}
         />
       ))}
+      <Pagination isNext={result.isNext} pageNumber={page} />
     </>
   )
 }

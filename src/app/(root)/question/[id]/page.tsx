@@ -8,13 +8,14 @@ import { getQuestionById, getUserById } from '@/lib/actions'
 import { formatAndDivideNumber, getTimeStamp } from '@/lib/utils'
 import { AllAnswers, Metric, ParseHTML, RenderTag, Votes } from '@/components/shared'
 import { Answer } from '@/components/forms'
+import { SearchParamsProps } from '@/types'
 
-interface Props {
+interface Props extends SearchParamsProps {
   params: { id: string }
 }
 
 const page: React.FC<Props> = async (props) => {
-  const { params } = props
+  const { params, searchParams } = props
 
   const result = await getQuestionById({ questionId: params.id })
 
@@ -84,6 +85,8 @@ const page: React.FC<Props> = async (props) => {
         userId={mongoUser?._id}
         questionId={result.question._id}
         totalAnswers={result.question.answers.length}
+        page={searchParams?.page}
+        filter={searchParams?.filter}
       />
 
       <Answer

@@ -7,21 +7,23 @@ import { AnswerFilters } from '@/constants/filters'
 
 import { getTimeStamp } from '@/lib/utils'
 
-import { Filter, ParseHTML, Votes } from '@/components/shared'
+import { Filter, Pagination, ParseHTML, Votes } from '@/components/shared'
 
 interface Props {
   userId: string
   questionId: string
   totalAnswers: number
-  page?: number
-  filter?: number
+  page?: string
+  filter?: string
 }
 
 const AllAnswers: React.FC<Props> = async (props) => {
-  const { questionId, totalAnswers, userId } = props
+  const { questionId, totalAnswers, userId, page, filter } = props
 
   const result = await getAnswers({
     questionId,
+    page: page ? +page : 1,
+    sortBy: filter,
   })
 
   return (
@@ -72,6 +74,7 @@ const AllAnswers: React.FC<Props> = async (props) => {
           </article>
         ))}
       </div>
+      <Pagination isNext={result.isNext} pageNumber={page ? +page : 1} />
     </div>
   )
 }

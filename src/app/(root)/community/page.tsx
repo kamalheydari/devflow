@@ -4,12 +4,16 @@ import { UserFilters } from '@/constants/filters'
 
 import { getAllUsers } from '@/lib/actions'
 
-import { Filter, LocalSearchbar } from '@/components/shared'
+import { Filter, LocalSearchbar, Pagination } from '@/components/shared'
 import { UserCard } from '@/components/cards'
 import { SearchParamsProps } from '@/types'
 
 export default async function Community({ searchParams }: SearchParamsProps) {
-  const result = await getAllUsers({ searchQuery: searchParams.q })
+  const result = await getAllUsers({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
+  })
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>
@@ -37,6 +41,7 @@ export default async function Community({ searchParams }: SearchParamsProps) {
           </div>
         )}
       </section>
+      <Pagination isNext={result.isNext} pageNumber={searchParams?.page ? +searchParams.page : 1} />
     </>
   )
 }
