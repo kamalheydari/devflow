@@ -1,9 +1,12 @@
 import { formatAndDivideNumber } from '@/lib/utils'
+import { BadgeCounts } from '@/types'
 import Image from 'next/image'
 
 interface Props {
   totalQuestions: number
   totalAnswers: number
+  badges: BadgeCounts
+  reputation: number
 }
 
 interface StatsCardProps {
@@ -24,10 +27,10 @@ const StatsCard: React.FC<StatsCardProps> = (props) => {
 }
 
 const Stats: React.FC<Props> = (props) => {
-  const { totalAnswers, totalQuestions } = props
+  const { totalAnswers, totalQuestions, badges, reputation } = props
   return (
     <div className="mt-10">
-      <h4 className="h3-semibold text-dark200_light900">stats</h4>
+      <h4 className="h3-semibold text-dark200_light900">stats - {reputation}</h4>
 
       <div className="mt-5 grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-4">
         <div className="light-border background-light900_dark300 flex flex-wrap items-center justify-evenly gap-4 rounded-md border p-6 shadow-light-300 dark:shadow-dark-200">
@@ -41,11 +44,11 @@ const Stats: React.FC<Props> = (props) => {
           </div>
         </div>
 
-        <StatsCard imgUrl="/assets/icons/gold-medal.svg" value={0} title="Gold Badges" />
+        <StatsCard imgUrl="/assets/icons/gold-medal.svg" value={badges.GOLD} title="Gold Badges" />
 
-        <StatsCard imgUrl="/assets/icons/silver-medal.svg" value={0} title="Silver Badges" />
+        <StatsCard imgUrl="/assets/icons/silver-medal.svg" value={badges.SILVER} title="Silver Badges" />
 
-        <StatsCard imgUrl="/assets/icons/bronze-medal.svg" value={0} title="Bronze Badges" />
+        <StatsCard imgUrl="/assets/icons/bronze-medal.svg" value={badges.BRONZE} title="Bronze Badges" />
       </div>
     </div>
   )

@@ -32,7 +32,7 @@ export async function globalSearch(params: SearchParams) {
           ...queryResults.map((item) => ({
             title: type === 'answer' ? `Answers containing ${query}` : item[searchField],
             type,
-            id: type === 'user' ? item.clerkid : type === 'answer' ? item.question : item._id,
+            id: type === 'user' ? item.clerkId : type === 'answer' ? item.question : item._id,
           }))
         )
       }
