@@ -20,4 +20,3 @@ export { default as QuestionTab } from './QuestionTab'
 export { default as AnswersTab } from './AnswersTab'
 export { default as EditDeleteAction } from './EditDeleteAction'
 export { default as Pagination } from './Pagination'
-

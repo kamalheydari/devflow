@@ -76,7 +76,7 @@ const Page: React.FC<URLProps> = async (props) => {
               Answrs
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts">
+          <TabsContent value="top-posts" className="mt-5 flex w-full flex-col gap-6">
             {clerkId && (
               <QuestionTab
                 page={searchParams?.page ? +searchParams.page : 1}

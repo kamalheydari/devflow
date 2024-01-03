@@ -51,30 +51,31 @@ const QuestionCard: React.FC<Props> = (props) => {
             isAuthor
             href={`/profile/${author._id}`}
           />
+          <div className="flex items-center gap-3 max-sm:flex-wrap max-sm:justify-start">
+            <Metric
+              alt="Upvotes"
+              imgUrl="/assets/icons/like.svg"
+              textStyles="small-medium text-dark400_light800"
+              title="Votes"
+              value={formatAndDivideNumber(upvotes.length)}
+            />
 
-          <Metric
-            alt="Upvotes"
-            imgUrl="/assets/icons/like.svg"
-            textStyles="small-medium text-dark400_light800"
-            title="Votes"
-            value={formatAndDivideNumber(upvotes.length)}
-          />
+            <Metric
+              alt="message"
+              imgUrl="/assets/icons/message.svg"
+              textStyles="small-medium text-dark400_light800"
+              title="Answers"
+              value={formatAndDivideNumber(answers.length)}
+            />
 
-          <Metric
-            alt="message"
-            imgUrl="/assets/icons/message.svg"
-            textStyles="small-medium text-dark400_light800"
-            title="Answers"
-            value={formatAndDivideNumber(answers.length)}
-          />
-
-          <Metric
-            alt="eye"
-            imgUrl="/assets/icons/eye.svg"
-            textStyles="small-medium text-dark400_light800"
-            title="Views"
-            value={formatAndDivideNumber(views)}
-          />
+            <Metric
+              alt="eye"
+              imgUrl="/assets/icons/eye.svg"
+              textStyles="small-medium text-dark400_light800"
+              title="Views"
+              value={formatAndDivideNumber(views)}
+            />
+          </div>
         </div>
       </div>
     </div>
