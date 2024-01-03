@@ -7,6 +7,7 @@ import { formatAndDivideNumber } from '@/lib/utils'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { toast } from '@/components/ui/use-toast'
 
 interface Props {
   type: 'Question' | 'Answer'
@@ -31,11 +32,17 @@ const Votes: React.FC<Props> = (props) => {
       questionId: JSON.parse(itemId),
       path: pathname,
     })
+
+    return toast({
+      title: `Question ${!hasupVoted ? 'Saved in' : 'Removed from'} your collection`,
+      variant: !hasSaved ? 'default' : 'destructive',
+    })
   }
 
   const handleVote = async (action: 'upvote' | 'downvote') => {
-    // eslint-disable-next-line no-useless-return
-    if (!userId) return
+    if (!userId) {
+      return toast({ title: 'Please log in', description: 'You must be logged in to perform this action' })
+    }
 
     if (action === 'upvote') {
       if (type === 'Question') {
@@ -56,10 +63,10 @@ const Votes: React.FC<Props> = (props) => {
         })
       }
 
-      // todo show toast
-
-      // eslint-disable-next-line no-useless-return
-      return
+      return toast({
+        title: `Upvote ${!hasupVoted ? 'Successful' : 'Removed'}`,
+        variant: !hasupVoted ? 'default' : 'destructive',
+      })
     }
 
     if (action === 'downvote') {
@@ -81,10 +88,10 @@ const Votes: React.FC<Props> = (props) => {
         })
       }
 
-      // todo show toast
-
-      // eslint-disable-next-line no-useless-return
-      return
+      return toast({
+        title: `DwonVote ${!hasupVoted ? 'Successful' : 'Removed'}`,
+        variant: !hasupVoted ? 'default' : 'destructive',
+      })
     }
   }
 
