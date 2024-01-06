@@ -34,7 +34,7 @@ interface Props {
 }
 
 const Question: React.FC<Props> = (props) => {
-  const { mongoUserId, type = 'create', questionDetails } = props
+  const { mongoUserId, type, questionDetails } = props
 
   const { resolvedTheme } = useTheme()
 
