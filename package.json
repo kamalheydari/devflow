@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
-    "prepare": "husky install"
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\""
   },
   "dependencies": {
     "@clerk/nextjs": "^4.26.2",
